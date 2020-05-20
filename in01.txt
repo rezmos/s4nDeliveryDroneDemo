@@ -1,0 +1,3 @@
+(-2, 4) west direction
+(-3, 3) north direction
+(-4, 6) east direction

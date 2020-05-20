@@ -2,9 +2,8 @@ package co.com.domicilio.corrientazo.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import co.com.domicilio.corrientazo.io.FileReader;
+import co.com.domicilio.corrientazo.io.FileUtility;
 
-import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -18,11 +17,25 @@ public class DeliveryAddresses {
     }
 
     public void loadDeliveryAddresses() {
-       List<String> addressList = FileReader.readFileInList("deliveryAddressFile.txt");
+       List<String> addressList = FileUtility.readFileInList("deliveryAddressFile.txt");
        DeliveryAddress deliveryAddress = new DeliveryAddress();
        for (String address: addressList) {
             deliveryAddress = DeliveryAddress.generateDeliveryAddress(address, deliveryAddress);
             deliveryAddressList.add(deliveryAddress);
        };
+    }
+
+    public List<DeliveryAddress> getDeliveryAddressesPerLoadingCapacity(int droneIndex, int loadingCapacity){
+        List<DeliveryAddress> deliveryAddressesSet = new LinkedList<>();
+        if (this.deliveryAddressList == null )
+            return null;
+
+        for (int i=(droneIndex*loadingCapacity); i<(loadingCapacity*(droneIndex+1)) &&  i<this.deliveryAddressList.size(); i++){
+            DeliveryAddress temp = this.deliveryAddressList.get(i);
+            deliveryAddressesSet.add(temp);
+        }
+
+        return deliveryAddressesSet;
+
     }
 }

@@ -55,4 +55,9 @@ public class DeliveryAddress {
         return new DeliveryAddress(new Point(x, y, currentCardinalPoint));
     }
 
+    @Override
+    public String toString(){
+        return "("+this.getPoint().getX()+", "+this.getPoint().getY()+") "+this.getPoint().getCardinalPoints().toString().toLowerCase() + " direction";
+    }
+
 }
