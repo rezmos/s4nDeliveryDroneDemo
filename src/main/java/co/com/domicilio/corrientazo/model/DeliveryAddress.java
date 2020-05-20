@@ -1,5 +1,6 @@
 package co.com.domicilio.corrientazo.model;
 
+import co.com.domicilio.corrientazo.model.enums.CardinalPoints;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

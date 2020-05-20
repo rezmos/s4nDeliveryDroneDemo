@@ -17,7 +17,7 @@ public class DeliveryAddresses {
     }
 
     public void loadDeliveryAddresses() {
-       List<String> addressList = FileUtility.readFileInList("deliveryAddressFile.txt");
+       List<String> addressList = FileUtility.readFileInList("addresses.txt");
        DeliveryAddress deliveryAddress = new DeliveryAddress();
        for (String address: addressList) {
             deliveryAddress = DeliveryAddress.generateDeliveryAddress(address, deliveryAddress);
@@ -25,7 +25,7 @@ public class DeliveryAddresses {
        };
     }
 
-    public List<DeliveryAddress> getDeliveryAddressesPerLoadingCapacity(int droneIndex, int loadingCapacity){
+    public List<DeliveryAddress> getDeliveryAddressesLoadingCapacityPerDrone(int droneIndex, int loadingCapacity){
         List<DeliveryAddress> deliveryAddressesSet = new LinkedList<>();
         if (this.deliveryAddressList == null )
             return null;

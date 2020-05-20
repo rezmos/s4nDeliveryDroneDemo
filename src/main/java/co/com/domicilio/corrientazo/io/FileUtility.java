@@ -1,6 +1,5 @@
 package co.com.domicilio.corrientazo.io;
 
-import java.net.URL;
 import java.util.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
@@ -10,9 +9,12 @@ public class FileUtility {
 
     public static List<String> readFileInList(String fileName) {
 
+        Path currentRelativePath = Paths.get("");
+        String absolutePath = currentRelativePath.toAbsolutePath().toString()+"/addresses/"+fileName;
+
         List<String> lines = Collections.emptyList();
         try {
-            File file = getFileFromResources(fileName);
+            File file = new File(absolutePath);
             lines = Files.readAllLines(Paths.get(file.getPath()), StandardCharsets.UTF_8);
         }
         catch (IOException e) {
@@ -25,7 +27,10 @@ public class FileUtility {
 
     public static void writeFile(String fileName, String content) {
 
-        try(FileWriter fw = new FileWriter(FileUtility.renameFile(fileName, "in"), true);
+        Path currentRelativePath = Paths.get("");
+        String absolutePath = currentRelativePath.toAbsolutePath().toString()+"/reports/"+FileUtility.renameFile(fileName, "in");
+
+        try(FileWriter fw = new FileWriter(absolutePath, true);
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter out = new PrintWriter(bw))
         {
@@ -36,16 +41,11 @@ public class FileUtility {
         }
     }
 
-    public static File getFileFromResources(String fileName) {
+    public static void purgeReportDirectory (){
+        Path currentRelativePath = Paths.get("");
+        String absolutePath = currentRelativePath.toAbsolutePath().toString()+"/reports/";
 
-        ClassLoader classLoader = new FileUtility().getClass().getClassLoader();
-
-        URL resource = classLoader.getResource(fileName);
-        if (resource == null) {
-            throw new IllegalArgumentException("file is not found!");
-        } else {
-            return new File(resource.getFile());
-        }
+        Arrays.stream(new File(absolutePath).listFiles()).forEach(File::delete);
 
     }
 

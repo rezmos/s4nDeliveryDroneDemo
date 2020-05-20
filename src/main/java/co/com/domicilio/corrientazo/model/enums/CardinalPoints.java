@@ -1,4 +1,4 @@
-package co.com.domicilio.corrientazo.model;
+package co.com.domicilio.corrientazo.model.enums;
 
 public enum CardinalPoints {
     EAST,
